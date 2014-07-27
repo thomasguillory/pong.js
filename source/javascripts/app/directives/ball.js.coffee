@@ -7,10 +7,10 @@
 
   link: (scope, element) ->
     element.css
-      width:      "#{scope.ball.WIDTH}%"
+      width:      "#{scope.ball.constructor.WIDTH}px"
+      height:     "#{scope.ball.constructor.HEIGHT}px"
 
     element.css
-      height:     "#{-element[0].offsetWidth}px"
       marginLeft: "#{-element[0].offsetWidth / 2}px"
       marginTop:  "#{-element[0].offsetHeight / 2}px"
 
