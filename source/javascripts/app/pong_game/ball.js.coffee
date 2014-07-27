@@ -32,14 +32,12 @@
       if @x < @paddle1.constructor.WIDTH + @RELATIVE_WIDTH / 2 and
           @y > (@paddle1.position - @paddle1.constructor.HEIGHT / 2 - @RELATIVE_HEIGHT / 2) and
           @y < (@paddle1.position + @paddle1.constructor.HEIGHT / 2 + @RELATIVE_HEIGHT / 2)
-        @dx = -@dx * (1 + @constructor.ACCELERATION)
-        @dy += @paddle1.dy / 5
+        @_handleBallCollision()
 
       if @x > 100 - @paddle2.constructor.WIDTH - @RELATIVE_WIDTH / 2 and
           @y > (@paddle2.position - @paddle2.constructor.HEIGHT / 2 - @RELATIVE_HEIGHT / 2) and
           @y < (@paddle2.position + @paddle2.constructor.HEIGHT / 2 + @RELATIVE_HEIGHT / 2)
-        @dx = -@dx * (1 + @constructor.ACCELERATION)
-        @dy += @paddle1.dy / 5
+        @_handleBallCollision()
 
       # Lost balls
       if @x < 0
@@ -51,3 +49,8 @@
       # Movement
       @x += @dx
       @y += @dy
+
+    _handleBallCollision: ->
+      @dx = -@dx * (1 + @constructor.ACCELERATION)
+      @dy += @paddle1.dy / 5
+      @game.trigger 'pong'

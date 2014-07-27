@@ -1,4 +1,6 @@
 @pong.controller 'PongCtrl', ($scope, Game, $element, $window) ->
+  $scope.backgroundColor = '#000000'
+
   # Init Game with view-specific constraints (game size)
   $scope.game = new Game $element[0].offsetWidth,
                          $element[0].offsetHeight
@@ -16,6 +18,24 @@
 
   $window.addEventListener 'keyup', (event) ->
     delete downKeys[event.keyCode]
+
+  # Handle PONG! event
+  # Load assets
+  sounds = [
+    new Audio('sounds/pongblipf5.wav'),
+    new Audio('sounds/pongblipf4.wav')
+  ]
+  nextSound = 0
+
+  $scope.game.on 'pong', ->
+    $scope.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16)
+
+    sounds[nextSound].currentTime = 0
+    sounds[nextSound].play()
+    nextSound += 1
+    nextSound = 0 if nextSound == sounds.length
+
+
 
   # Game loop
   step = ->
