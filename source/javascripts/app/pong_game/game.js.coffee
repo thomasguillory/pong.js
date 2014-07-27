@@ -11,5 +11,7 @@
         game: @
 
     update: ->
+      @player1.update()
+      @player2.update()
       @ball.update()
 

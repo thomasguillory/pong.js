@@ -22,15 +22,19 @@
     $scope.$apply ->
       # Player 1
       if downKeys[38]
-        $scope.game.player1.paddle.move -2
-      if downKeys[40]
-        $scope.game.player1.paddle.move 2
+        $scope.game.player1.paddle.moveUp()
+      else if downKeys[40]
+        $scope.game.player1.paddle.moveDown()
+      else
+        $scope.game.player1.paddle.stopMove()
 
       # Player 2
       if downKeys[87]
-        $scope.game.player2.paddle.move -2
-      if downKeys[83]
-        $scope.game.player2.paddle.move 2
+        $scope.game.player2.paddle.moveUp()
+      else if downKeys[83]
+        $scope.game.player2.paddle.moveDown()
+      else
+        $scope.game.player2.paddle.stopMove()
 
       $scope.game.update()
 

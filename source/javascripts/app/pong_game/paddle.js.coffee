@@ -2,13 +2,24 @@
   class Paddle
     @WIDTH: 2    # % of playfield width
     @HEIGHT: 25  # % of playfield height
+    @SPEED: 2
 
     constructor: ->
       @position = 50
+      @dy       = 0
 
-    move: (dx) ->
-      if dx < 0 and not (@position < @constructor.HEIGHT / 2)
-        @position += dx
+    moveUp: (dy) ->
+      @dy = -@constructor.SPEED
 
-      if dx > 0 and not (@position > (100 - @constructor.HEIGHT / 2))
-        @position += dx
+    moveDown: (dy) ->
+      @dy = @constructor.SPEED
+
+    stopMove: ->
+      @dy = 0
+
+    update: ->
+      if @dy < 0 and not (@position < @constructor.HEIGHT / 2)
+        @position += @dy
+
+      if @dy > 0 and not (@position > (100 - @constructor.HEIGHT / 2))
+        @position += @dy
