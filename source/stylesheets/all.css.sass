@@ -1,0 +1,57 @@
+html, body
+  height: 100%
+
+*
+  box-sizing: border-box
+
+.playfield
+  height: 100%
+  background: #000
+  position: relative
+
+  .net
+    width: 0.2em
+    height: 100%
+    border-left: 0.2em dashed #fff
+    margin-left: -0.1em
+    position: absolute
+    left: 50%
+    top: 0
+
+  .score
+    font-size: 8em
+    position: absolute
+    top: 0
+    width: 4em
+    margin-left: -2em
+    text-align: center
+    color: #fff
+
+    &.player1
+      left: 25%
+    &.player2
+      left: 75%
+
+  .paddle
+    width: 2em
+    height: 10em
+    background: #fff
+    position: absolute
+    top: 50%
+    margin-top: -5em
+
+    &.player1
+      left: 0
+
+    &.player2
+      right: 0
+
+  .ball
+    width: 2em
+    height: 2em
+    background: #fff
+    position: absolute
+    left: 50%
+    top: 50%
+    margin-top: -1em
+    margin-left: -1em
