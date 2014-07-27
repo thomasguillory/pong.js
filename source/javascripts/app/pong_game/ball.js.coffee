@@ -2,6 +2,7 @@
   class Ball
     @WIDTH:  30 # in px
     @HEIGHT: 30 # in px
+    @ACCELERATION: 0.02
 
     constructor: (options) ->
       @game     = options.game
@@ -31,13 +32,13 @@
       if @x < @paddle1.constructor.WIDTH + @RELATIVE_WIDTH / 2 and
           @y > (@paddle1.position - @paddle1.constructor.HEIGHT / 2 - @RELATIVE_HEIGHT / 2) and
           @y < (@paddle1.position + @paddle1.constructor.HEIGHT / 2 + @RELATIVE_HEIGHT / 2)
-        @dx = -@dx
+        @dx = -@dx * (1 + @constructor.ACCELERATION)
         @dy += @paddle1.dy / 5
 
       if @x > 100 - @paddle2.constructor.WIDTH - @RELATIVE_WIDTH / 2 and
           @y > (@paddle2.position - @paddle2.constructor.HEIGHT / 2 - @RELATIVE_HEIGHT / 2) and
           @y < (@paddle2.position + @paddle2.constructor.HEIGHT / 2 + @RELATIVE_HEIGHT / 2)
-        @dx = -@dx
+        @dx = -@dx * (1 + @constructor.ACCELERATION)
         @dy += @paddle1.dy / 5
 
       # Lost balls
