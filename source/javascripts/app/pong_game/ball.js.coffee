@@ -4,7 +4,9 @@
     @HEIGHT: 30 # in px
 
     constructor: (options) ->
-      @game = options.game
+      @game     = options.game
+      @paddle1  = options.paddle1
+      @paddle2  = options.paddle2
 
       # Translating px constants in %
       @RELATIVE_WIDTH   = 100 * @constructor.WIDTH  / @game.width
@@ -18,11 +20,20 @@
 
     update: ->
       # Collisions
-      if @x < @RELATIVE_WIDTH / 2 or @x > (100 - @RELATIVE_WIDTH / 2)
-        @dx = -@dx
-
+      #.. the easy one, up and bottom walls
       if @y < @RELATIVE_HEIGHT / 2 or @y > (100 - @RELATIVE_HEIGHT / 2)
         @dy = -@dy
+
+      #.. the hard one, collision with paddles
+      if @x < @paddle1.constructor.WIDTH + @RELATIVE_WIDTH / 2 and
+          @y > (@paddle1.position - @paddle1.constructor.HEIGHT / 2) and
+          @y < (@paddle1.position + @paddle1.constructor.HEIGHT / 2)
+        @dx = -@dx
+
+      if @x > 100 - @paddle2.constructor.WIDTH - @RELATIVE_WIDTH / 2 and
+          @y > (@paddle2.position - @paddle2.constructor.HEIGHT / 2) and
+          @y < (@paddle2.position + @paddle2.constructor.HEIGHT / 2)
+        @dx = -@dx
 
       # Movement
       @x += @dx

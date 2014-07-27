@@ -11,6 +11,8 @@
 
       @ball = new Ball
         game: @
+        paddle1: @player1.paddle
+        paddle2: @player2.paddle
 
     update: ->
       @ball.update()
