@@ -4,8 +4,11 @@ title: Pong.js
 
 .playfield{ ng_controller: 'PongCtrl' }
   .net
-  .score.player1 {{player1.score}}
-  .score.player2 {{player2.score}}
-  .paddle.player1{ style: 'top:{{player1.y}}%' }
-  .paddle.player2{ style: 'top:{{player2.y}}%' }
-  .ball
+  .player1
+    .score {{game.player1.score}}
+    %paddle{ paddle:'game.player1.paddle'}
+  .player2
+    .score {{game.player2.score}}
+    %paddle{ paddle:'game.player2.paddle'}
+
+  %ball{ ball:'game.ball' }

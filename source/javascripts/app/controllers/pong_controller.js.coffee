@@ -1,20 +1,36 @@
-@pong.controller 'PongCtrl', ($scope, $window) ->
-  $scope.player1 =
-    y: 50
-    score: 0
+@pong.controller 'PongCtrl', ($scope, Game, $window) ->
+  $scope.game = new Game
 
-  $scope.player2 =
-    y: 50
-    score: 0
+  animate = window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            (callback) -> window.setTimeout(callback, 1000/60)
 
+  downKeys = {}
   $window.addEventListener 'keydown', (event) ->
-    move = switch event.keyCode
-      when 38
-        -4
-      when 40
-        4
-      else
-        0
+    downKeys[event.keyCode] = true
 
+  $window.addEventListener 'keyup', (event) ->
+    delete downKeys[event.keyCode]
+
+  step = ->
     $scope.$apply ->
-      $scope.player1.y += move
+      # Player 1
+      if downKeys[38]
+        $scope.game.player1.paddle.move -2
+      if downKeys[40]
+        $scope.game.player1.paddle.move 2
+
+      # Player 2
+      if downKeys[87]
+        $scope.game.player2.paddle.move -2
+      if downKeys[83]
+        $scope.game.player2.paddle.move 2
+
+      $scope.game.update()
+
+    animate step
+
+  $window.onload = ->
+    animate step
+
