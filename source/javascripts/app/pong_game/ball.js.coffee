@@ -5,14 +5,17 @@
 
     constructor: (options) ->
       @game     = options.game
-      @paddle1  = options.paddle1
-      @paddle2  = options.paddle2
+      @paddle1  = @game.player1.paddle
+      @paddle2  = @game.player2.paddle
 
       # Translating px constants in %
       @RELATIVE_WIDTH   = 100 * @constructor.WIDTH  / @game.width
       @RELATIVE_HEIGHT  = 100 * @constructor.HEIGHT / @game.height
 
       # Initial position and speed
+      @initialize()
+
+    initialize: ->
       @x  = 50
       @y  = 50
       @dx = -0.5
@@ -34,6 +37,13 @@
           @y > (@paddle2.position - @paddle2.constructor.HEIGHT / 2) and
           @y < (@paddle2.position + @paddle2.constructor.HEIGHT / 2)
         @dx = -@dx
+
+      # Lost balls
+      if @x < 0
+        @game.player2.win()
+
+      if @x > 100
+        @game.player1.win()
 
       # Movement
       @x += @dx
