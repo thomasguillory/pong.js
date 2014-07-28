@@ -1,0 +1,8 @@
+{
+  "name": "pongjs-server",
+  "version": "0.0.1",
+  "description": "pong.js server",
+  "dependencies": {
+    "socket.io": "^1.0.6"
+  }
+}

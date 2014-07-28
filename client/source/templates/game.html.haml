@@ -1,0 +1,10 @@
+.playfield{ style: 'background: {{backgroundColor}}' }
+  .net
+  .player1
+    .score {{game.player1.score}}
+    %paddle{ paddle:'game.player1.paddle'}
+  .player2
+    .score {{game.player2.score}}
+    %paddle{ paddle:'game.player2.paddle'}
+
+  %ball{ ball:'game.ball' }

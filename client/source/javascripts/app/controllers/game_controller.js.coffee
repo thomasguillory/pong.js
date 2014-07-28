@@ -1,9 +1,12 @@
-@pong.controller 'PongCtrl', ($scope, Game, $element, $window) ->
+@pong.controller 'GameCtrl', ($scope, Game, $window) ->
+  playfieldElement = $window.document
+                     .getElementsByClassName('playfield')[0]
+
   $scope.backgroundColor = '#000000'
 
   # Init Game with view-specific constraints (game size)
-  $scope.game = new Game $element[0].offsetWidth,
-                         $element[0].offsetHeight
+  $scope.game = new Game playfieldElement.offsetWidth,
+                         playfieldElement.offsetHeight
 
   # TODO: to move out in a service
   animate = window.requestAnimationFrame ||
