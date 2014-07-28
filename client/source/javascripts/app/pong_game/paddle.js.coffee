@@ -16,18 +16,14 @@
     moveTo: (y) ->
       @position = y
 
-    # moveUp: (dy) ->
-    #   @dy = -@constructor.SPEED
+    moveUp: (dy) ->
+      @player.game.socket.emit  "player#{@player.id}.paddle.acceleration",
+                                -@constructor.SPEED
 
-    # moveDown: (dy) ->
-    #   @dy = @constructor.SPEED
+    moveDown: (dy) ->
+      @player.game.socket.emit  "player#{@player.id}.paddle.acceleration",
+                                @constructor.SPEED
 
-    # stopMove: ->
-    #   @dy = 0
-
-    # update: ->
-    #   if @dy < 0 and not (@position < @constructor.HEIGHT / 2)
-    #     @position += @dy
-
-    #   if @dy > 0 and not (@position > (100 - @constructor.HEIGHT / 2))
-    #     @position += @dy
+    stopMove: ->
+      @player.game.socket.emit  "player#{@player.id}.paddle.acceleration",
+                                0

@@ -9,6 +9,9 @@ class Paddle
     @moveTo 50
     @dy = 0
 
+    @player.game.on "player#{@player.id}.paddle.acceleration", (dy) =>
+      @dy = dy
+
   moveTo: (y) ->
     @position = y
     @player.game.emit "player#{@player.id}.paddle.position", y

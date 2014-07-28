@@ -19,23 +19,16 @@
             window.mozRequestAnimationFrame ||
             (callback) -> window.setTimeout(callback, 1000/60)
 
-  step = ->
-    $scope.$apply()
-    animate step
+  # Key handling. Could be extracted (TODO)
+  downKeys = {}
+  $window.addEventListener 'keydown', (event) ->
+    downKeys[event.keyCode] = true
 
-  $window.onload = ->
-    animate step
+  $window.addEventListener 'keyup', (event) ->
+    delete downKeys[event.keyCode]
 
-  # # Key handling. Could be extracted (TODO)
-  # downKeys = {}
-  # $window.addEventListener 'keydown', (event) ->
-  #   downKeys[event.keyCode] = true
-
-  # $window.addEventListener 'keyup', (event) ->
-  #   delete downKeys[event.keyCode]
-
-  # # Handle PONG! event
-  # # Load assets
+  # Handle PONG! event
+  # Load assets
   # sounds = [
   #   new Audio('sounds/pongblipf5.wav'),
   #   new Audio('sounds/pongblipf4.wav')
@@ -51,30 +44,27 @@
   #   nextSound = 0 if nextSound == sounds.length
 
 
+  # Game loop
+  step = ->
+    $scope.$apply ->
+      # Player 1
+      if downKeys[38]
+        $scope.game.player1.paddle.moveUp()
+      else if downKeys[40]
+        $scope.game.player1.paddle.moveDown()
+      else
+        $scope.game.player1.paddle.stopMove()
 
-  # # Game loop
-  # step = ->
-  #   $scope.$apply ->
-  #     # Player 1
-  #     if downKeys[38]
-  #       $scope.game.player1.paddle.moveUp()
-  #     else if downKeys[40]
-  #       $scope.game.player1.paddle.moveDown()
-  #     else
-  #       $scope.game.player1.paddle.stopMove()
+      # Player 2
+      if downKeys[87]
+        $scope.game.player2.paddle.moveUp()
+      else if downKeys[83]
+        $scope.game.player2.paddle.moveDown()
+      else
+        $scope.game.player2.paddle.stopMove()
 
-  #     # Player 2
-  #     if downKeys[87]
-  #       $scope.game.player2.paddle.moveUp()
-  #     else if downKeys[83]
-  #       $scope.game.player2.paddle.moveDown()
-  #     else
-  #       $scope.game.player2.paddle.stopMove()
+    animate step
 
-  #     $scope.game.update()
-
-  #   animate step
-
-  # $window.onload = ->
-  #   animate step
+  $window.onload = ->
+    animate step
 

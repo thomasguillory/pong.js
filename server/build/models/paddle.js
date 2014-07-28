@@ -13,6 +13,11 @@
       this.player = options.player;
       this.moveTo(50);
       this.dy = 0;
+      this.player.game.on("player" + this.player.id + ".paddle.acceleration", (function(_this) {
+        return function(dy) {
+          return _this.dy = dy;
+        };
+      })(this));
     }
 
     Paddle.prototype.moveTo = function(y) {
