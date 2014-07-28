@@ -4,22 +4,30 @@
     @HEIGHT: 25  # % of playfield height
     @SPEED: 2
 
-    constructor: ->
+    constructor: (options) ->
+      @player   = options.player
       @position = 50
       @dy       = 0
 
-    moveUp: (dy) ->
-      @dy = -@constructor.SPEED
+      # Bind to socket events
+      @player.game.socket.on "player#{@player.id}.paddle.position", (y) =>
+        @moveTo(y)
 
-    moveDown: (dy) ->
-      @dy = @constructor.SPEED
+    moveTo: (y) ->
+      @position = y
 
-    stopMove: ->
-      @dy = 0
+    # moveUp: (dy) ->
+    #   @dy = -@constructor.SPEED
 
-    update: ->
-      if @dy < 0 and not (@position < @constructor.HEIGHT / 2)
-        @position += @dy
+    # moveDown: (dy) ->
+    #   @dy = @constructor.SPEED
 
-      if @dy > 0 and not (@position > (100 - @constructor.HEIGHT / 2))
-        @position += @dy
+    # stopMove: ->
+    #   @dy = 0
+
+    # update: ->
+    #   if @dy < 0 and not (@position < @constructor.HEIGHT / 2)
+    #     @position += @dy
+
+    #   if @dy > 0 and not (@position > (100 - @constructor.HEIGHT / 2))
+    #     @position += @dy

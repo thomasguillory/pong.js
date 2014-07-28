@@ -4,7 +4,7 @@ var Game = function() {
 
 Game.prototype.addParticipant = function(socket) {
   this.participants.push(socket);
-  socket.emit('welcome','You have joined the Game');
+  socket.emit('ball.position',80,10);
 };
 
 exports.Game = Game;

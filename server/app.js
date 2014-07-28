@@ -1,9 +1,10 @@
 var io    = require('socket.io');
 var Game  = require('./models/game.js').Game;
 
-var games = [];
+var games   = [];
+var server = io.listen(3000);
 
-io.on('connection', function(socket) {
+server.on('connection', function(socket) {
   var game;
 
   console.log('a user connected');
@@ -13,10 +14,9 @@ io.on('connection', function(socket) {
   });
 
   socket.on('join', function (uuid) {
-    games[uuid] ||= new Game;
-    game        ||= games[uuid];
+    console.log('Receive a demand of join on ' + uuid);
+    games[uuid] = games[uuid] || new Game;
+    game        = game        || games[uuid];
     game.addParticipant(socket);
   });
 });
-
-io.listen(3000);

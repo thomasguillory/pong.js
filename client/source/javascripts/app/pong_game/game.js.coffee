@@ -1,21 +1,18 @@
 @pongGame.factory 'Game', (Player, Ball) ->
   class Game
-    constructor: (@width, @height) ->
+    constructor: (@socket, @width, @height) ->
       # Basic objects
       @player1 = new Player
+        id: 1
         game: @
       @player2 = new Player
+        id: 2
         game: @
       @ball = new Ball
         game: @
 
       # Other internals
       @_events          = {}
-
-    update: ->
-      @player1.update()
-      @player2.update()
-      @ball.update()
 
     on: (event, handler) ->
       @_events[event] ||= []
