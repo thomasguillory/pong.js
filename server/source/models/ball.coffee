@@ -57,6 +57,6 @@ class Ball
   _handleBallCollision: ->
     @dx = -@dx * (1 + @constructor.ACCELERATION)
     @dy += @paddle1.dy / 5
-    # @game.trigger 'pong'
+    @game.broadcast 'ball.pong'
 
 exports.Ball = Ball

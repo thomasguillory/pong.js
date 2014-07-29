@@ -15,12 +15,6 @@ class Game
     @ball = new Ball
       game: @
 
-    # TODO include the color of the game
-    # TODO include the mode of the game
-
-    # TODO add sounds
-    # TODO deployment in prod somewhere + github
-
     @run()
 
   addParticipant: (socket) =>

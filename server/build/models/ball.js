@@ -60,7 +60,8 @@
 
     Ball.prototype._handleBallCollision = function() {
       this.dx = -this.dx * (1 + this.constructor.ACCELERATION);
-      return this.dy += this.paddle1.dy / 5;
+      this.dy += this.paddle1.dy / 5;
+      return this.game.broadcast('ball.pong');
     };
 
     return Ball;

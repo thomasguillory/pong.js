@@ -8,3 +8,13 @@
     %paddle{ paddle:'game.player2.paddle'}
 
   %ball{ ball:'game.ball' }
+
+  .controls
+    %label
+      %input{type: 'checkbox', ng_model: 'mode.psych'}
+      Psychedelic Mode
+
+    %label
+      %input{type: 'checkbox', ng_model: 'mode.sound'}
+      Sounds
+

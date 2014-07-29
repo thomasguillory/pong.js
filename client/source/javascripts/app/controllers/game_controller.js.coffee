@@ -18,7 +18,32 @@
   Socket.emit 'join', $routeParams.uuid
 
   # Some view specific variables
-  $scope.backgroundColor = '#000000'
+  $scope.mode =
+    psych: false
+    sound: false
+
+  $scope.$watch 'mode.psych', (psych) ->
+    unless psych
+      $scope.backgroundColor = '#000000'
+
+  # Handle PONG! event
+  # Load assets
+  sounds = [
+    new Audio('sounds/pongblipf5.wav'),
+    new Audio('sounds/pongblipf4.wav')
+  ]
+  nextSound = 0
+
+  Socket.on 'ball.pong', ->
+    if $scope.mode.psych
+      $scope.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16)
+
+    if $scope.mode.sound
+      sounds[nextSound].currentTime = 0
+      sounds[nextSound].play()
+      nextSound += 1
+      nextSound = 0 if nextSound == sounds.length
+
 
   # TODO: to move out in a service
   animate = window.requestAnimationFrame ||
@@ -33,23 +58,6 @@
 
   $window.addEventListener 'keyup', (event) ->
     delete downKeys[event.keyCode]
-
-  # Handle PONG! event
-  # Load assets
-  # sounds = [
-  #   new Audio('sounds/pongblipf5.wav'),
-  #   new Audio('sounds/pongblipf4.wav')
-  # ]
-  # nextSound = 0
-
-  # $scope.game.on 'pong', ->
-  #   $scope.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16)
-
-  #   sounds[nextSound].currentTime = 0
-  #   sounds[nextSound].play()
-  #   nextSound += 1
-  #   nextSound = 0 if nextSound == sounds.length
-
 
   # Game loop
   step = ->
