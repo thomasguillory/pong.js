@@ -1,0 +1,69 @@
+/* line 1, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+html, body, .view {
+  height: 100%; }
+
+/* line 4, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+* {
+  box-sizing: border-box; }
+
+/* line 7, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+.playfield {
+  height: 100%;
+  overflow: hidden;
+  background: black;
+  position: relative; }
+  /* line 13, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .net {
+    width: 0.2em;
+    height: 100%;
+    border-left: 0.2em dashed white;
+    margin-left: -0.1em;
+    position: absolute;
+    left: 50%;
+    top: 0; }
+  /* line 22, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .score {
+    font-size: 7em;
+    font-family: "Press Start 2P", cursive;
+    position: absolute;
+    top: 0.2em;
+    width: 4em;
+    margin-left: -2em;
+    text-align: center;
+    color: white; }
+  /* line 32, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .paddle {
+    width: 2em;
+    background: white;
+    position: absolute; }
+  /* line 37, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .ball {
+    width: 2em;
+    height: 2em;
+    background: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -1em;
+    margin-left: -1em; }
+  /* line 48, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .player1 .score {
+    left: 25%; }
+  /* line 50, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .player1 .paddle {
+    left: 0; }
+  /* line 54, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .player2 .score {
+    left: 75%; }
+  /* line 56, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .player2 .paddle {
+    right: 0; }
+  /* line 59, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+  .playfield .controls {
+    color: white;
+    position: absolute;
+    right: 0;
+    bottom: 0; }
+    /* line 65, /home/thomas/Projects/pong.js/client/source/stylesheets/all.css.sass */
+    .playfield .controls label {
+      margin-right: 1em; }

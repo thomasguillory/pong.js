@@ -1,0 +1,22 @@
+<div class='playfield' style='background: {{backgroundColor}}'>
+  <div class='net'></div>
+  <div class='player1'>
+    <div class='score'>{{game.player1.score}}</div>
+    <paddle paddle='game.player1.paddle'></paddle>
+  </div>
+  <div class='player2'>
+    <div class='score'>{{game.player2.score}}</div>
+    <paddle paddle='game.player2.paddle'></paddle>
+  </div>
+  <ball ball='game.ball'></ball>
+  <div class='controls'>
+    <label>
+      <input ng_model='mode.psych' type='checkbox'>
+      Psychedelic Mode
+    </label>
+    <label>
+      <input ng_model='mode.sound' type='checkbox'>
+      Sounds
+    </label>
+  </div>
+</div>
