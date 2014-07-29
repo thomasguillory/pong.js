@@ -32,7 +32,12 @@ class Game
     @_ons.forEach (_on) ->
       socket.on(_on...)
 
-    # TODO send current value at connection
+    @initParticipant socket
+
+  initParticipant: (socket) =>
+    @player1.sendValuesTo socket
+    @player2.sendValuesTo socket
+    @ball.sendValuesTo socket
 
   removeParticipant: (socket) =>
     idx = @_participants.indexOf socket
@@ -47,7 +52,7 @@ class Game
   on: (args...) =>
     @_ons.push args
 
-  emit: (args...) =>
+  broadcast: (args...) =>
     @_participants.forEach (participant) ->
       participant.emit(args...)
 

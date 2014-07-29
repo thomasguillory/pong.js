@@ -19,7 +19,13 @@ class Ball
   moveTo: (x,y) ->
     @x = x
     @y = y
-    @game.emit 'ball.position', x, y
+    @sendValues()
+
+  sendValues: =>
+    @game.broadcast 'ball.position', @x, @y
+
+  sendValuesTo: (socket) =>
+    socket.emit 'ball.position', @x, @y
 
   update: ->
     # Collisions

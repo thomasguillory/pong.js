@@ -11,9 +11,10 @@
   Game = (function() {
     function Game() {
       this.run = __bind(this.run, this);
-      this.emit = __bind(this.emit, this);
+      this.broadcast = __bind(this.broadcast, this);
       this.on = __bind(this.on, this);
       this.removeParticipant = __bind(this.removeParticipant, this);
+      this.initParticipant = __bind(this.initParticipant, this);
       this.addParticipant = __bind(this.addParticipant, this);
       this._participants = [];
       this._ons = [];
@@ -34,9 +35,16 @@
 
     Game.prototype.addParticipant = function(socket) {
       this._participants.push(socket);
-      return this._ons.forEach(function(_on) {
+      this._ons.forEach(function(_on) {
         return socket.on.apply(socket, _on);
       });
+      return this.initParticipant(socket);
+    };
+
+    Game.prototype.initParticipant = function(socket) {
+      this.player1.sendValuesTo(socket);
+      this.player2.sendValuesTo(socket);
+      return this.ball.sendValuesTo(socket);
     };
 
     Game.prototype.removeParticipant = function(socket) {
@@ -57,7 +65,7 @@
       return this._ons.push(args);
     };
 
-    Game.prototype.emit = function() {
+    Game.prototype.broadcast = function() {
       var args;
       args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
       return this._participants.forEach(function(participant) {

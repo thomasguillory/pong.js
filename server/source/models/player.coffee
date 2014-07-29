@@ -10,7 +10,14 @@ class Player
 
   updateScore: (score) ->
     @score = score
-    @game.emit "player#{@id}.score", @score
+    @sendValues()
+
+  sendValues: =>
+    @game.broadcast "player#{@id}.score", @score
+
+  sendValuesTo: (socket) =>
+    socket.emit "player#{@id}.score", @score
+    @paddle.sendValuesTo socket
 
   update: ->
     @paddle.update()

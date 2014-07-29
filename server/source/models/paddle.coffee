@@ -14,7 +14,13 @@ class Paddle
 
   moveTo: (y) ->
     @position = y
-    @player.game.emit "player#{@player.id}.paddle.position", y
+    @sendValues()
+
+  sendValues: =>
+    @player.game.broadcast "player#{@player.id}.paddle.position", @position
+
+  sendValuesTo: (socket) =>
+    socket.emit "player#{@player.id}.paddle.position", @position
 
   update: ->
     if (@dy < 0 and not (@position < @constructor.HEIGHT / 2)) or
