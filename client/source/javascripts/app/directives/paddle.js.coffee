@@ -15,3 +15,9 @@
 
     scope.$watch 'paddle.position', (position) ->
       element.css 'top', "#{position}%"
+
+    scope.$watch 'paddle.selected', (selected) ->
+      if selected
+        element.css 'background', '#990000'
+      else
+        element.css 'background', null

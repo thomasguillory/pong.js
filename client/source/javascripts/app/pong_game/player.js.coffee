@@ -11,12 +11,9 @@
       @game.socket.on "player#{@id}.score", (score) =>
         @updateScore score
 
+    select: =>
+      @paddle.select()
+
     updateScore: (score) ->
       @score = score
 
-    # update: ->
-    #   @paddle.update()
-
-    # win: ->
-    #   @score += 1
-    #   @game.ball.initialize()

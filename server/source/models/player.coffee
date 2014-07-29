@@ -7,6 +7,7 @@ class Player
     @score  = 0
     @paddle = new Paddle
       player: @
+    @participant = null
 
   updateScore: (score) ->
     @score = score
@@ -18,6 +19,14 @@ class Player
   sendValuesTo: (socket) =>
     socket.emit "player#{@id}.score", @score
     @paddle.sendValuesTo socket
+
+  attach: (socket) =>
+    @participant = socket
+    @participant.emit "player.election", @id
+    @paddle.attach socket
+
+  detach: (socket) =>
+    @participant = null
 
   update: ->
     @paddle.update()

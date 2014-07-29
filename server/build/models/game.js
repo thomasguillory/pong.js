@@ -38,6 +38,11 @@
 
     Game.prototype.addParticipant = function(socket) {
       this._participants.push(socket);
+      if (!this.player1.participant) {
+        this.player1.attach(socket);
+      } else if (!this.player2.participant) {
+        this.player2.attach(socket);
+      }
       this._ons.forEach(function(_on) {
         return socket.on.apply(socket, _on);
       });
@@ -52,6 +57,12 @@
 
     Game.prototype.removeParticipant = function(socket) {
       var idx;
+      if (socket === this.player1.participant) {
+        this.player1.detach(socket);
+      }
+      if (socket === this.player2.participant) {
+        this.player2.detach(socket);
+      }
       idx = this._participants.indexOf(socket);
       if (idx > -1) {
         return this._participants.splice(idx, 1);

@@ -1,5 +1,5 @@
 @pong.controller 'GameCtrl', ($scope, $window, $routeParams
-                              Socket, Game ) ->
+                              Socket, Game, Paddle ) ->
 
   # Init Game with view-specific constraints (game size)
   playfieldElement = $window.document.getElementsByClassName('playfield')[0]
@@ -8,6 +8,13 @@
                          playfieldElement.offsetHeight
 
   # Join game as P1, P2, or visitor
+  Socket.on 'player.election', (player_id) ->
+    switch player_id
+      when 1
+        $scope.game.player1.select()
+      when 2
+        $scope.game.player2.select()
+
   Socket.emit 'join', $routeParams.uuid
 
   # Some view specific variables
@@ -47,21 +54,12 @@
   # Game loop
   step = ->
     $scope.$apply ->
-      # Player 1
       if downKeys[38]
-        $scope.game.player1.paddle.moveUp()
+        $scope.game.socket.emit 'paddle.acceleration', -Paddle.SPEED
       else if downKeys[40]
-        $scope.game.player1.paddle.moveDown()
+        $scope.game.socket.emit 'paddle.acceleration', Paddle.SPEED
       else
-        $scope.game.player1.paddle.stopMove()
-
-      # Player 2
-      if downKeys[87]
-        $scope.game.player2.paddle.moveUp()
-      else if downKeys[83]
-        $scope.game.player2.paddle.moveDown()
-      else
-        $scope.game.player2.paddle.stopMove()
+        $scope.game.socket.emit 'paddle.acceleration', 0
 
     animate step
 

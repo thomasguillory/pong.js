@@ -6,6 +6,7 @@
 
     constructor: (options) ->
       @player   = options.player
+      @selected = false
       @position = 50
       @dy       = 0
 
@@ -13,17 +14,8 @@
       @player.game.socket.on "player#{@player.id}.paddle.position", (y) =>
         @moveTo(y)
 
+    select: =>
+      @selected = true
+
     moveTo: (y) ->
       @position = y
-
-    moveUp: (dy) ->
-      @player.game.socket.emit  "player#{@player.id}.paddle.acceleration",
-                                -@constructor.SPEED
-
-    moveDown: (dy) ->
-      @player.game.socket.emit  "player#{@player.id}.paddle.acceleration",
-                                @constructor.SPEED
-
-    stopMove: ->
-      @player.game.socket.emit  "player#{@player.id}.paddle.acceleration",
-                                0

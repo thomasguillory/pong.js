@@ -7,6 +7,8 @@
 
   Player = (function() {
     function Player(options) {
+      this.detach = __bind(this.detach, this);
+      this.attach = __bind(this.attach, this);
       this.sendValuesTo = __bind(this.sendValuesTo, this);
       this.sendValues = __bind(this.sendValues, this);
       this.id = options.id;
@@ -15,6 +17,7 @@
       this.paddle = new Paddle({
         player: this
       });
+      this.participant = null;
     }
 
     Player.prototype.updateScore = function(score) {
@@ -29,6 +32,16 @@
     Player.prototype.sendValuesTo = function(socket) {
       socket.emit("player" + this.id + ".score", this.score);
       return this.paddle.sendValuesTo(socket);
+    };
+
+    Player.prototype.attach = function(socket) {
+      this.participant = socket;
+      this.participant.emit("player.election", this.id);
+      return this.paddle.attach(socket);
+    };
+
+    Player.prototype.detach = function(socket) {
+      return this.participant = null;
     };
 
     Player.prototype.update = function() {

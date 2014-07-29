@@ -23,12 +23,18 @@ class Game
     # TODO add font
     # TODO deployment in prod somewhere + github
 
-    # TODO add players and then viewers
-
     @run()
 
   addParticipant: (socket) =>
     @_participants.push socket
+
+    # Elect Players
+    unless @player1.participant
+      @player1.attach socket
+    else unless @player2.participant
+      @player2.attach socket
+
+    # Set broadcast callbacks
     @_ons.forEach (_on) ->
       socket.on(_on...)
 
@@ -40,6 +46,9 @@ class Game
     @ball.sendValuesTo socket
 
   removeParticipant: (socket) =>
+    @player1.detach socket if socket == @player1.participant
+    @player2.detach socket if socket == @player2.participant
+
     idx = @_participants.indexOf socket
     @_participants.splice idx, 1 if idx > -1
 
