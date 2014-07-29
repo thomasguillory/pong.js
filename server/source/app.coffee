@@ -2,7 +2,7 @@ io    = require('socket.io')
 Game  = require('./models/game.js').Game
 
 games   = []
-server = io.listen(5000)
+server = io.listen(3210)
 
 server.on 'connection', (socket) ->
   game = null

@@ -2,7 +2,7 @@
   this.socketIO = angular.module('socketIO', []);
 
   this.socketIO.factory('Socket', function() {
-    return io(':5000');
+    return io(':3210');
   });
 
 }).call(this);

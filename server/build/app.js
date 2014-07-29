@@ -8,7 +8,7 @@
 
   games = [];
 
-  server = io.listen(5000);
+  server = io.listen(3210);
 
   server.on('connection', function(socket) {
     var game;
