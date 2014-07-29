@@ -3,11 +3,11 @@
   var Ball;
 
   Ball = (function() {
-    Ball.WIDTH = 5;
+    Ball.WIDTH = 2;
 
-    Ball.HEIGHT = 10;
+    Ball.HEIGHT = 4;
 
-    Ball.ACCELERATION = 0.02;
+    Ball.ACCELERATION = 0.04;
 
     function Ball(options) {
       this.game = options.game;
@@ -29,13 +29,13 @@
     };
 
     Ball.prototype.update = function() {
-      if (this.y < this.HEIGHT / 2 || this.y > (100 - this.HEIGHT / 2)) {
+      if (this.y < this.constructor.HEIGHT / 2 || this.y > (100 - this.constructor.HEIGHT / 2)) {
         this.dy = -this.dy;
       }
-      if (this.x < this.paddle1.constructor.WIDTH + this.WIDTH / 2 && this.y > (this.paddle1.position - this.paddle1.constructor.HEIGHT / 2 - this.HEIGHT / 2) && this.y < (this.paddle1.position + this.paddle1.constructor.HEIGHT / 2 + this.HEIGHT / 2)) {
+      if (this.x < this.paddle1.constructor.WIDTH + this.constructor.WIDTH / 2 && this.y > (this.paddle1.position - this.paddle1.constructor.HEIGHT / 2 - this.constructor.HEIGHT / 2) && this.y < (this.paddle1.position + this.paddle1.constructor.HEIGHT / 2 + this.constructor.HEIGHT / 2)) {
         this._handleBallCollision();
       }
-      if (this.x > 100 - this.paddle2.constructor.WIDTH - this.WIDTH / 2 && this.y > (this.paddle2.position - this.paddle2.constructor.HEIGHT / 2 - this.HEIGHT / 2) && this.y < (this.paddle2.position + this.paddle2.constructor.HEIGHT / 2 + this.HEIGHT / 2)) {
+      if (this.x > 100 - this.paddle2.constructor.WIDTH - this.constructor.WIDTH / 2 && this.y > (this.paddle2.position - this.paddle2.constructor.HEIGHT / 2 - this.constructor.HEIGHT / 2) && this.y < (this.paddle2.position + this.paddle2.constructor.HEIGHT / 2 + this.constructor.HEIGHT / 2)) {
         this._handleBallCollision();
       }
       if (this.x < 0) {

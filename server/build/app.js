@@ -13,11 +13,16 @@
   server.on('connection', function(socket) {
     var game;
     game = null;
-    return socket.on('join', function(uuid) {
+    socket.on('join', function(uuid) {
+      console.log('New join !');
       games[uuid] || (games[uuid] = new Game);
       game || (game = games[uuid]);
-      game.addParticipant(socket);
-      return game.run();
+      return game.addParticipant(socket);
+    });
+    return socket.on('disconnect', function() {
+      if (game != null) {
+        return game.removeParticipant(socket);
+      }
     });
   });
 

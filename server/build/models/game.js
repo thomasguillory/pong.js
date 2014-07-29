@@ -13,9 +13,11 @@
       this.run = __bind(this.run, this);
       this.emit = __bind(this.emit, this);
       this.on = __bind(this.on, this);
+      this.removeParticipant = __bind(this.removeParticipant, this);
       this.addParticipant = __bind(this.addParticipant, this);
       this._participants = [];
       this._ons = [];
+      this._timeout = null;
       this.player1 = new Player({
         id: 1,
         game: this
@@ -27,6 +29,7 @@
       this.ball = new Ball({
         game: this
       });
+      this.run();
     }
 
     Game.prototype.addParticipant = function(socket) {
@@ -34,6 +37,18 @@
       return this._ons.forEach(function(_on) {
         return socket.on.apply(socket, _on);
       });
+    };
+
+    Game.prototype.removeParticipant = function(socket) {
+      var idx;
+      idx = this._participants.indexOf(socket);
+      if (idx > -1) {
+        this._participants.splice(idx, 1);
+      }
+      if (this._participants.length === 0) {
+        clearTimeout(this._timeout);
+        return delete this;
+      }
     };
 
     Game.prototype.on = function() {
@@ -58,7 +73,7 @@
 
     Game.prototype.run = function() {
       this.update();
-      return setTimeout(this.run, 1000 / 60);
+      return this._timeout = setTimeout(this.run, 1000 / 60);
     };
 
     return Game;

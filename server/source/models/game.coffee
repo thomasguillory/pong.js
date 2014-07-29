@@ -4,7 +4,8 @@ Ball    = require('./ball.js').Ball
 class Game
   constructor: ->
     @_participants = []
-    @_ons = []
+    @_ons          = []
+    @_timeout      = null
 
     @player1 = new Player
       id: 1
@@ -15,11 +16,33 @@ class Game
     @ball = new Ball
       game: @
 
+    # TODO include the color of the game
+    # TODO include the mode of the game
+
+    # TODO add sounds
+    # TODO add font
+    # TODO deployment in prod somewhere + github
+
+    # TODO add players and then viewers
+
+    @run()
 
   addParticipant: (socket) =>
     @_participants.push socket
     @_ons.forEach (_on) ->
       socket.on(_on...)
+
+    # TODO send current value at connection
+
+  removeParticipant: (socket) =>
+    idx = @_participants.indexOf socket
+    @_participants.splice idx, 1 if idx > -1
+
+    if @_participants.length == 0
+      clearTimeout @_timeout
+      delete @
+      # TODO remove game from global array
+      # TODO externalize stop game decision
 
   on: (args...) =>
     @_ons.push args
@@ -35,6 +58,6 @@ class Game
 
   run: =>
     @update()
-    setTimeout @run, 1000 / 60
+    @_timeout = setTimeout @run, 1000 / 60
 
 exports.Game = Game

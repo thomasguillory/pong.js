@@ -1,7 +1,7 @@
 class Ball
-  @WIDTH:  5  # in %
-  @HEIGHT: 10 # in %
-  @ACCELERATION: 0.02
+  @WIDTH:  2  # in %
+  @HEIGHT: 4 # in %
+  @ACCELERATION: 0.04
 
   constructor: (options) ->
     @game     = options.game
@@ -24,18 +24,18 @@ class Ball
   update: ->
     # Collisions
     #.. the easy one, up and bottom walls
-    if @y < @HEIGHT / 2 or @y > (100 - @HEIGHT / 2)
+    if @y < @constructor.HEIGHT / 2 or @y > (100 - @constructor.HEIGHT / 2)
       @dy = -@dy
 
     #.. the hard one, collision with paddles
-    if @x < @paddle1.constructor.WIDTH + @WIDTH / 2 and
-        @y > (@paddle1.position - @paddle1.constructor.HEIGHT / 2 - @HEIGHT / 2) and
-        @y < (@paddle1.position + @paddle1.constructor.HEIGHT / 2 + @HEIGHT / 2)
+    if @x < @paddle1.constructor.WIDTH + @constructor.WIDTH / 2 and
+        @y > (@paddle1.position - @paddle1.constructor.HEIGHT / 2 - @constructor.HEIGHT / 2) and
+        @y < (@paddle1.position + @paddle1.constructor.HEIGHT / 2 + @constructor.HEIGHT / 2)
       @_handleBallCollision()
 
-    if @x > 100 - @paddle2.constructor.WIDTH - @WIDTH / 2 and
-        @y > (@paddle2.position - @paddle2.constructor.HEIGHT / 2 - @HEIGHT / 2) and
-        @y < (@paddle2.position + @paddle2.constructor.HEIGHT / 2 + @HEIGHT / 2)
+    if @x > 100 - @paddle2.constructor.WIDTH - @constructor.WIDTH / 2 and
+        @y > (@paddle2.position - @paddle2.constructor.HEIGHT / 2 - @constructor.HEIGHT / 2) and
+        @y < (@paddle2.position + @paddle2.constructor.HEIGHT / 2 + @constructor.HEIGHT / 2)
       @_handleBallCollision()
 
     # Lost balls

@@ -65,6 +65,5 @@
 
     animate step
 
-  $window.onload = ->
-    animate step
+  animate step
 

@@ -4,7 +4,7 @@ class Paddle
   @SPEED: 2
 
   constructor: (options) ->
-    @player   = options.player
+    @player = options.player
 
     @moveTo 50
     @dy = 0
@@ -15,15 +15,6 @@ class Paddle
   moveTo: (y) ->
     @position = y
     @player.game.emit "player#{@player.id}.paddle.position", y
-
-  # moveUp: (dy) ->
-  #   @dy = -@constructor.SPEED
-
-  # moveDown: (dy) ->
-  #   @dy = @constructor.SPEED
-
-  # stopMove: ->
-  #   @dy = 0
 
   update: ->
     if (@dy < 0 and not (@position < @constructor.HEIGHT / 2)) or

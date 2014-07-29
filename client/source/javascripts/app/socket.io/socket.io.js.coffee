@@ -3,4 +3,4 @@
 
 @socketIO = angular.module 'socketIO', []
 @socketIO.factory 'Socket', ->
-  io('http://localhost:3000')
+  io('http://192.168.1.35:3000')
