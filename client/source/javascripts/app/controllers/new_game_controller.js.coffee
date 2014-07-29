@@ -1,3 +1,2 @@
 @pong.controller 'NewGameCtrl', ($location) ->
-  console.log "elewewe"
-  $location.path "/game/abc"
+  $location.path "/game/#{uuid.v4()}"
