@@ -8,20 +8,25 @@
 
   games = [];
 
-  server = io.listen(3000);
+  server = io.listen(5000);
 
   server.on('connection', function(socket) {
     var game;
     game = null;
     socket.on('join', function(uuid) {
       console.log('New join !');
-      games[uuid] || (games[uuid] = new Game);
+      games[uuid] || (games[uuid] = new Game(uuid));
       game || (game = games[uuid]);
       return game.addParticipant(socket);
     });
     return socket.on('disconnect', function() {
       if (game != null) {
-        return game.removeParticipant(socket);
+        game.removeParticipant(socket);
+        if (!game.hasParticipants()) {
+          game.stop();
+          delete games[game.uuid];
+          return game = null;
+        }
       }
     });
   });

@@ -9,10 +9,13 @@
   Ball = require('./ball.js').Ball;
 
   Game = (function() {
-    function Game() {
+    function Game(uuid) {
+      this.uuid = uuid;
+      this.stop = __bind(this.stop, this);
       this.run = __bind(this.run, this);
       this.broadcast = __bind(this.broadcast, this);
       this.on = __bind(this.on, this);
+      this.hasParticipants = __bind(this.hasParticipants, this);
       this.removeParticipant = __bind(this.removeParticipant, this);
       this.initParticipant = __bind(this.initParticipant, this);
       this.addParticipant = __bind(this.addParticipant, this);
@@ -51,12 +54,12 @@
       var idx;
       idx = this._participants.indexOf(socket);
       if (idx > -1) {
-        this._participants.splice(idx, 1);
+        return this._participants.splice(idx, 1);
       }
-      if (this._participants.length === 0) {
-        clearTimeout(this._timeout);
-        return delete this;
-      }
+    };
+
+    Game.prototype.hasParticipants = function() {
+      return this._participants.length > 0;
     };
 
     Game.prototype.on = function() {
@@ -82,6 +85,10 @@
     Game.prototype.run = function() {
       this.update();
       return this._timeout = setTimeout(this.run, 1000 / 60);
+    };
+
+    Game.prototype.stop = function() {
+      return clearTimeout(this._timeout);
     };
 
     return Game;

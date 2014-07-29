@@ -2,7 +2,7 @@ Player  = require('./player.js').Player
 Ball    = require('./ball.js').Ball
 
 class Game
-  constructor: ->
+  constructor: (@uuid) ->
     @_participants = []
     @_ons          = []
     @_timeout      = null
@@ -43,11 +43,8 @@ class Game
     idx = @_participants.indexOf socket
     @_participants.splice idx, 1 if idx > -1
 
-    if @_participants.length == 0
-      clearTimeout @_timeout
-      delete @
-      # TODO remove game from global array
-      # TODO externalize stop game decision
+  hasParticipants: =>
+    @_participants.length > 0
 
   on: (args...) =>
     @_ons.push args
@@ -64,5 +61,8 @@ class Game
   run: =>
     @update()
     @_timeout = setTimeout @run, 1000 / 60
+
+  stop: =>
+    clearTimeout @_timeout
 
 exports.Game = Game
