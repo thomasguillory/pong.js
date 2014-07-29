@@ -14,13 +14,11 @@
       this.stop = __bind(this.stop, this);
       this.run = __bind(this.run, this);
       this.broadcast = __bind(this.broadcast, this);
-      this.on = __bind(this.on, this);
       this.hasParticipants = __bind(this.hasParticipants, this);
       this.removeParticipant = __bind(this.removeParticipant, this);
       this.initParticipant = __bind(this.initParticipant, this);
       this.addParticipant = __bind(this.addParticipant, this);
       this._participants = [];
-      this._ons = [];
       this._timeout = null;
       this.player1 = new Player({
         id: 1,
@@ -43,9 +41,6 @@
       } else if (!this.player2.participant) {
         this.player2.attach(socket);
       }
-      this._ons.forEach(function(_on) {
-        return socket.on.apply(socket, _on);
-      });
       return this.initParticipant(socket);
     };
 
@@ -71,12 +66,6 @@
 
     Game.prototype.hasParticipants = function() {
       return this._participants.length > 0;
-    };
-
-    Game.prototype.on = function() {
-      var args;
-      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      return this._ons.push(args);
     };
 
     Game.prototype.broadcast = function() {

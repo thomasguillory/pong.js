@@ -4,7 +4,6 @@ Ball    = require('./ball.js').Ball
 class Game
   constructor: (@uuid) ->
     @_participants = []
-    @_ons          = []
     @_timeout      = null
 
     @player1 = new Player
@@ -33,10 +32,6 @@ class Game
     else unless @player2.participant
       @player2.attach socket
 
-    # Set broadcast callbacks
-    @_ons.forEach (_on) ->
-      socket.on(_on...)
-
     @initParticipant socket
 
   initParticipant: (socket) =>
@@ -53,9 +48,6 @@ class Game
 
   hasParticipants: =>
     @_participants.length > 0
-
-  on: (args...) =>
-    @_ons.push args
 
   broadcast: (args...) =>
     @_participants.forEach (participant) ->
