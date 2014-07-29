@@ -20,7 +20,6 @@ class Game
     # TODO include the mode of the game
 
     # TODO add sounds
-    # TODO add font
     # TODO deployment in prod somewhere + github
 
     @run()
